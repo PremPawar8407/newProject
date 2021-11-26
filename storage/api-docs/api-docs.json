@@ -1,0 +1,1640 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Laravel OpenApi Demo Documentation",
+        "description": "L5 Swagger OpenApi description",
+        "contact": {
+            "email": "prempawar130@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/Export": {
+            "get": {
+                "tags": [
+                    "prem"
+                ],
+                "summary": "List all studets",
+                "description": "create folder<br/>\n       Success Code:<br/>\n       8000: Response-Note updated successfully.<br/>\n       Error Code:<br/>\n       10001: Invalid session-token or its expired.<br/>\n       7008: Please enter a valid sort_column.<br/>\n       7007: Please enter a valid order.<br/>\n       7006: Please enter a valid status_value.<br/>\n       ",
+                "operationId": "App\\Exports\\practiceController::export",
+                "parameters": [
+                    {
+                        "name": "session-token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sort_By",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "example": "con_first_name/con_last_name"
+                        }
+                    },
+                    {
+                        "name": "order",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "example": "ASC/DESC"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "example": "0/1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "Please enter a valid information",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/newjoin": {
+            "get": {
+                "tags": [
+                    "new"
+                ],
+                "summary": "Get list of available subscription plans for user",
+                "description": "Subscription list",
+                "operationId": "App\\Http\\Controllers\\NEWcontroller::newjoin",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "components/schemas/ProjectResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/class": {
+            "post": {
+                "tags": [
+                    "college"
+                ],
+                "summary": "new from",
+                "operationId": "login",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "address",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "phone",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "not found"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/orderby": {
+            "get": {
+                "tags": [
+                    "college"
+                ],
+                "summary": "Get list of available subscription plans for user",
+                "description": "Subscription list",
+                "operationId": "App\\Http\\Controllers\\classorderby::clasassdec",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "components/schemas/ProjectResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/delete_class": {
+            "delete": {
+                "tags": [
+                    "PREM Tag"
+                ],
+                "summary": "Login",
+                "description": "Deletes a record and returns no content",
+                "operationId": "login",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Project id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/deleteswagg": {
+            "delete": {
+                "tags": [
+                    "PREM Tag"
+                ],
+                "summary": "Login",
+                "description": "Deletes a record and returns no content",
+                "operationId": "login",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Project id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/dockerfirst": {
+            "post": {
+                "tags": [
+                    "docker"
+                ],
+                "summary": "new from",
+                "operationId": "login",
+                "parameters": [
+                    {
+                        "name": "firstname",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "lastname",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "address",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "not found"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/dockerupdate": {
+            "put": {
+                "tags": [
+                    "docker"
+                ],
+                "summary": "Update existing project",
+                "description": "Subscription list",
+                "operationId": "updateProject",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "please enter total_round."
+                    }
+                ],
+                "requestBody": {
+                    "description": "Provide Folder details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id",
+                                    "firstname",
+                                    "lastname",
+                                    "email",
+                                    "address"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "string",
+                                        "example": "5465"
+                                    },
+                                    "firstname": {
+                                        "type": "string",
+                                        "example": "john"
+                                    },
+                                    "lastname": {
+                                        "type": "string",
+                                        "example": "doe"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "doe"
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "example": "doe"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/feeinsert": {
+            "post": {
+                "tags": [
+                    "new"
+                ],
+                "summary": "new from",
+                "operationId": "login",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "fees",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "not found"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/displayall/": {
+            "get": {
+                "tags": [
+                    "PREM Tag"
+                ],
+                "summary": "Get list of available subscription plans for user",
+                "description": "Subscription list",
+                "operationId": "App\\Http\\Controllers\\fetchAllcontro::fetchAll",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "components/schemas/ProjectResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/employee/add": {
+            "post": {
+                "tags": [
+                    "prem"
+                ],
+                "summary": "Create Contact",
+                "description": "create contact<br/>\n       ",
+                "operationId": "App\\Http\\Controllers\\fetchEmployee::insertEmployee",
+                "requestBody": {
+                    "description": "Provide employee details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "employee_id": {
+                                        "type": "numeric",
+                                        "example": "1"
+                                    },
+                                    "empoyee_name": {
+                                        "type": "string",
+                                        "example": "john_ceana"
+                                    },
+                                    "employee_location": {
+                                        "type": "string",
+                                        "example": "pune"
+                                    },
+                                    "empolyee_salary": {
+                                        "type": "numeric",
+                                        "example": "100000"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/fetch_class/": {
+            "get": {
+                "tags": [
+                    "college"
+                ],
+                "summary": "Get list of available subscription plans for user",
+                "description": "Subscription list",
+                "operationId": "App\\Http\\Controllers\\fetchclasscontro::fetch_class",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "components/schemas/ProjectResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/fetch_data/{id}/{name}\t": {
+            "get": {
+                "tags": [
+                    "PREM Tag"
+                ],
+                "summary": "Get list of available subscription plans for user",
+                "description": "Subscription list",
+                "operationId": "App\\Http\\Controllers\\fetchdbcontroller::fetchasc",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "components/schemas/ProjectResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/addFolder": {
+            "post": {
+                "tags": [
+                    "Project"
+                ],
+                "summary": "Create Folder",
+                "description": "create folder<br/>\n       Success Code:<br/>\n       10004: Folder added successfullly.<br/>\n       Error Code:<br/>\n       7002: Please enter a valid session-token.<br/>\n       7004: Please enter a valid folder_name.<br/>\n       7005: Please enter a valid folder_password.<br/>\n       7006: Please enter a valid folder_state(A/I).<br/>\n       7007: pleasse enter a valid folder_type(NORMAL/DRIP).<br/>\n       7008: folder_name is already exists.<br/>\n       ",
+                "operationId": "App\\Http\\Controllers\\folderController::insertFolder",
+                "parameters": [
+                    {
+                        "name": "session-token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Provide Folder details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "folder_name",
+                                    "folder_password",
+                                    "folder_state",
+                                    "folder_type"
+                                ],
+                                "properties": {
+                                    "folder_name": {
+                                        "type": "string",
+                                        "example": "Holiday"
+                                    },
+                                    "folder_password": {
+                                        "type": "string",
+                                        "example": "123456"
+                                    },
+                                    "folder_state": {
+                                        "type": "string",
+                                        "example": "A/I"
+                                    },
+                                    "folder_type": {
+                                        "type": "string",
+                                        "example": "NORMAL/DRIP"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/folderList": {
+            "get": {
+                "tags": [
+                    "Project"
+                ],
+                "summary": "List all folder names under usr_id",
+                "description": "fetch folder list <br/>\n      Success Code:<br/>\n            10005: Folder list fetch successfull.<br/>\n      Error Code:<br/>\n            7002: Please enter a valid session-token.<br/>\n            7006: Please enter a valid folder_state(A/I).<br/>\n            7007: pleasse enter a valid folder_type(NORMAL/DRIP).<br/> \n       ",
+                "operationId": "App\\Http\\Controllers\\folderController::fetchFolder",
+                "parameters": [
+                    {
+                        "name": "folder_state",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "A/I"
+                        }
+                    },
+                    {
+                        "name": "folder_type",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "NORMAL/DRIP"
+                        }
+                    },
+                    {
+                        "name": "session-token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/listAll": {
+            "get": {
+                "tags": [
+                    "Project"
+                ],
+                "summary": "List all folder names under usr_id",
+                "description": "fetch folder list <br/>\n      Success Code:<br/>\n            10005: Folder list fetch successfull.<br/>\n      Error Code:<br/>\n            7002: Please enter a valid session-token.<br/>\n       \t\t7007: pleasse enter a valid folder_type(NORMAL/DRIP).<br/>\n       ",
+                "operationId": "App\\Http\\Controllers\\folderController::fetchFolderType",
+                "parameters": [
+                    {
+                        "name": "folder_type",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "NORMAL/DRIP"
+                        }
+                    },
+                    {
+                        "name": "session-token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/listAllFolderUserId": {
+            "get": {
+                "tags": [
+                    "new"
+                ],
+                "summary": "List all folder names under usr_id",
+                "description": "fetch folder list <br/>\n      Success Code:<br/>\n            10005: Folder list fetch successfull.<br/>\n      Error Code:<br/>\n            7002: Please enter a valid session-token.<br/>\n       \t\t7007: pleasse enter a valid folder_type(NORMAL/DRIP).<br/>\n       ",
+                "operationId": "App\\Http\\Controllers\\folderController::listAllFolder",
+                "parameters": [
+                    {
+                        "name": "folder_type",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "NORMAL/DRIP"
+                        }
+                    },
+                    {
+                        "name": "usr_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "example": "1,2,3,4"
+                        }
+                    },
+                    {
+                        "name": "session-token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/update_folder": {
+            "post": {
+                "tags": [
+                    "Project"
+                ],
+                "summary": "update Folder",
+                "description": "update folder<br/>\n       Success Code:<br/>\n       10006: Folder update successfull.<br/>\n       Error Code:<br/>\n       7002: Please enter a valid session-token.<br/>\n       7004: Please enter a valid folder_name.<br/>\n       7005: Please enter a valid folder_password.<br/>\n       7006: Please enter a valid folder_state(A/I).<br/>\n       7007: pleasse enter a valid folder_type(NORMAL/DRIP).<br/>\n       7008: folder_name is already exists.<br/>\n       ",
+                "operationId": "App\\Http\\Controllers\\folderController::updateFolder",
+                "parameters": [
+                    {
+                        "name": "session-token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Provide Folder details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "folder_id",
+                                    "folder_name",
+                                    "folder_password",
+                                    "folder_state",
+                                    "folder_type"
+                                ],
+                                "properties": {
+                                    "folder_id": {
+                                        "type": "string",
+                                        "example": "1"
+                                    },
+                                    "folder_name": {
+                                        "type": "string",
+                                        "example": "Holiday"
+                                    },
+                                    "folder_password": {
+                                        "type": "string",
+                                        "example": "123456"
+                                    },
+                                    "folder_state": {
+                                        "type": "string",
+                                        "example": "A/I"
+                                    },
+                                    "folder_type": {
+                                        "type": "string",
+                                        "example": "NORMAL/DRIP"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/addGroup": {
+            "post": {
+                "tags": [
+                    "Project Group"
+                ],
+                "summary": "Create Group",
+                "description": "create group<br/>\n       Success Code:<br/>\n       10007: Group added successfully.<br/>\n       Error Code:<br/>\n       7002: Please enter a valid session-token.<br/>\n       7009: Please enter a valid group_name.<br/>\n       7010: Please enter a valid group_type(PUBLIC/PRIVATE).<br/>\n       7011: Group name is already exists.<br/>\n       ",
+                "operationId": "App\\Http\\Controllers\\groupController::addGroup",
+                "parameters": [
+                    {
+                        "name": "session-token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Provide Group details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "grp_name",
+                                    "grp_note",
+                                    "grp_type"
+                                ],
+                                "properties": {
+                                    "grp_name": {
+                                        "type": "string",
+                                        "example": "test"
+                                    },
+                                    "grp_note": {
+                                        "type": "string",
+                                        "example": "123456"
+                                    },
+                                    "grp_type": {
+                                        "type": "string",
+                                        "example": "PUBLIC/PRIVATE"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/deleteGroup": {
+            "post": {
+                "tags": [
+                    "Project Group"
+                ],
+                "summary": "Create Group",
+                "description": "create group<br/>\n       Success Code:<br/>\n       10007: Group added successfully.<br/>\n       Error Code:<br/>\n       7002: Please enter a valid session-token.<br/>\n       7009: Please enter a valid group_name.<br/>\n       7010: Please enter a valid group_type(PUBLIC/PRIVATE).<br/>\n       7011: Group name is already exists.<br/>\n       ",
+                "operationId": "App\\Http\\Controllers\\groupController::deleteGroup",
+                "parameters": [
+                    {
+                        "name": "session-token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Provide Group details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "grp_id"
+                                ],
+                                "properties": {
+                                    "grp_id": {
+                                        "type": "number",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/join": {
+            "get": {
+                "tags": [
+                    "college"
+                ],
+                "summary": "Get list of available subscription plans for user",
+                "description": "Subscription list",
+                "operationId": "App\\Http\\Controllers\\joincontroller::join",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "components/schemas/ProjectResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Project"
+                ],
+                "summary": "User Login",
+                "description": "Login user<br/>\n       ",
+                "operationId": "App\\Http\\Controllers\\logincontroller::accountLogin",
+                "requestBody": {
+                    "description": "Pass user credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "john@doe.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "123456"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response"
+                    }
+                }
+            }
+        },
+        "/api/validtoken": {
+            "get": {
+                "tags": [
+                    "Project"
+                ],
+                "summary": "check valid token",
+                "description": "check and get token.<br/>\n      Success Code:<br/>\n            10001: Folder list fetched successfullly.<br/>\n       ",
+                "operationId": "App\\Http\\Controllers\\logincontroller::validToken",
+                "parameters": [
+                    {
+                        "name": "session-token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/mutator": {
+            "post": {
+                "tags": [
+                    "mutator"
+                ],
+                "summary": "new from",
+                "operationId": "login",
+                "parameters": [
+                    {
+                        "name": "firstname",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "lastname",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "not found"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/swa_parameter": {
+            "get": {
+                "tags": [
+                    "PREM Tag"
+                ],
+                "summary": "Get list of available subscription plans for user",
+                "description": "Subscription list",
+                "operationId": "App\\Http\\Controllers\\parametercontroller::parameter",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "components/schemas/ProjectResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/user": {
+            "post": {
+                "tags": [
+                    "PREM Tag"
+                ],
+                "summary": "Login",
+                "operationId": "login",
+                "parameters": [
+                    {
+                        "name": "fname",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "lname",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "not found"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/searchapi": {
+            "get": {
+                "tags": [
+                    "college"
+                ],
+                "summary": "Get list of available subscription plans for user",
+                "description": "Subscription list",
+                "operationId": "App\\Http\\Controllers\\serachapi::searchvalue",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "components/schemas/ProjectResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/insertData": {
+            "post": {
+                "tags": [
+                    "Project"
+                ],
+                "summary": "registration",
+                "description": "Sign-Up<br/>\n       ",
+                "operationId": "App\\Http\\Controllers\\sigup::insertData",
+                "requestBody": {
+                    "description": "Provide employee details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "firstname",
+                                    "lastname",
+                                    "email",
+                                    "password",
+                                    "phone_number",
+                                    "subscription"
+                                ],
+                                "properties": {
+                                    "firstname": {
+                                        "type": "string",
+                                        "example": "john"
+                                    },
+                                    "lastname": {
+                                        "type": "string",
+                                        "example": "deo"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "john@gmail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "Prem@234"
+                                    },
+                                    "phone_number": {
+                                        "type": "string",
+                                        "example": "98956854785"
+                                    },
+                                    "subscription": {
+                                        "type": "numeric",
+                                        "example": "1/2/3"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/student_table": {
+            "post": {
+                "tags": [
+                    "new"
+                ],
+                "summary": "new from",
+                "operationId": "login",
+                "parameters": [
+                    {
+                        "name": "firstname",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "lastname",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "address",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "fees_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "not found"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/responePractice": {
+            "get": {
+                "tags": [
+                    "prem"
+                ],
+                "summary": "List all folder names under account_id",
+                "description": "fetch folder details<br/>\n      Success Code:<br/>\n            10001: Folder list fetched successfullly.<br/>\n       ",
+                "operationId": "App\\Http\\Controllers\\studentcontroller::responePractice",
+                "parameters": [
+                    {
+                        "name": "folder_type",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "NORMAL/DRIP"
+                        }
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/teacher_table": {
+            "post": {
+                "tags": [
+                    "college"
+                ],
+                "summary": "new from",
+                "operationId": "login",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "subject",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "teacher_phone",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "not found"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/update/": {
+            "put": {
+                "tags": [
+                    "PREM Tag"
+                ],
+                "summary": "Update existing project",
+                "description": "Subscription list",
+                "operationId": "updateProject",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "please enter total_round."
+                    }
+                ],
+                "requestBody": {
+                    "description": "Provide Folder details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "student_id",
+                                    "student_fname",
+                                    "student_lname"
+                                ],
+                                "properties": {
+                                    "student_id": {
+                                        "type": "string",
+                                        "example": "5465"
+                                    },
+                                    "student_fname": {
+                                        "type": "string",
+                                        "example": "john"
+                                    },
+                                    "student_lname": {
+                                        "type": "string",
+                                        "example": "doe"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Projects",
+            "description": "API Endpoints of Projects"
+        }
+    ],
+    "security": [
+        []
+    ]
+}
