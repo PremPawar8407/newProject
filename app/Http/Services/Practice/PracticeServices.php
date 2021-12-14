@@ -69,6 +69,7 @@ class PracticeServices
         $payload['password'] = $this->_encode($payload['password'], $majorsalt);   
         $credentialData  = new signUp;
         $getData         = $credentialData->loginCredential($payload);
+       
 
         if (empty($getData)) 
         {
@@ -78,7 +79,8 @@ class PracticeServices
         $token         = str_shuffle(md5(date("hh-mm-yyyy-H:i:s")));
         $setRedis      = Redis::connection();
         $data          = $setRedis->set('user' .$token, json_encode($getData));
-        return array("session-token" =>$token, "usr_data" => $getData);
+        //Redis::set('account_:' . $getData['data']['usr_id'], $token);
+        return array("session_token" =>$token, "usr_data" => $getData);
     }
 
     function checkUserDataToken($token)

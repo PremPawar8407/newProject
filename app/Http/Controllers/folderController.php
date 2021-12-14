@@ -57,14 +57,14 @@ class folderController extends Controller
     function insertFolder(Request $req)
     {
     	//valid session-token
-    	$sessionToken = $req->header("session-token");
-    	$practiceServices = new PracticeServices;
-        $getusrData       = json_decode($practiceServices->checkUserDataToken($sessionToken));
+    	$token            = $req->header("session_token");
+      $practiceServices = new PracticeServices;
+      $getusrData       = json_decode($practiceServices->checkUserDataToken($token));
 		if ($getusrData == '') 
 		{
 		return responceServices::responseWithError(7002, null);
 		}
-		$usrId = $getusrData[0]->usr_id;
+		$usrId = $getusrData->data->usr_id;
     	$payload = $req->all();
     	
     	$folderNameRules     = ['folder_name'     => 'required']; 
@@ -178,7 +178,7 @@ class folderController extends Controller
         	return responceServices::responseWithError(7002, null);
         }
 
-        $usrId = $getusrData[0]->usr_id;
+        $usrId = $getusrData->data->usr_id;
 
        
        	//valid folder state
@@ -201,7 +201,7 @@ class folderController extends Controller
 
          /**
      * @OA\Get(
-     * path="/api/listAll",
+     * path="/api/listAllFolder",
      * summary="List all folder names under usr_id",
      *   description="fetch folder list <br/>
       Success Code:<br/>
@@ -249,7 +249,7 @@ class folderController extends Controller
 	        }
 
 	        $payload           = $req->all();
-	        $payload['usr_id'] = $getusrData[0]->usr_id;
+	        $payload['usr_id'] = $getusrData->data->usr_id;
 
 	        $folderTypeRules = [ 'folder_type' => 'required'];
 
@@ -277,7 +277,7 @@ class folderController extends Controller
             7002: Please enter a valid session-token.<br/>
        		7007: pleasse enter a valid folder_type(NORMAL/DRIP).<br/>
        ",
-     * tags={"new"},
+     * tags={"Project"},
      *  @OA\Parameter(
      *      name="folder_type",
      *      in="query",
@@ -393,7 +393,7 @@ class folderController extends Controller
 
        	$practiceServices = new PracticeServices;
        	$getData          = json_decode($practiceServices->checkUserDataToken($sessionToken));
-       	$usrId            = $getData[0]->usr_id;
+       	$usrId            = $getData->data->usr_id;
        	if ($getData == '') 
        	{
        		return responceServices::responseWithError(7002, null);
@@ -435,6 +435,8 @@ class folderController extends Controller
     	 $folderServices = new folderServices;
     	//dynamic validate folder name
     	$dynamicValidFolderName = $folderServices->validateFolderName($payload['folder_name'], $usrId);
+      return $dynamicValidFolderName;
+      exit;
     	if (count($dynamicValidFolderName))
     	{
     		return responceServices::responseWithError(7008,null);	

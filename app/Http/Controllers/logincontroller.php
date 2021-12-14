@@ -57,6 +57,7 @@ class logincontroller extends Controller
    		$practiceServices = new PracticeServices;
    		$checkcredential  = $practiceServices->checkcredential($payload);
 
+     
    	if (empty($checkcredential)) 
     {
       return  responceServices::responseWithError(7003, null);
@@ -79,7 +80,7 @@ class logincontroller extends Controller
        ",
      * tags={"Project"},
      *  @OA\Parameter(
-     *      name="session-token",
+     *      name="session_token",
      *      in="header",
      *      required=true,
      *      @OA\Schema(
@@ -97,7 +98,7 @@ class logincontroller extends Controller
      */
     function validToken(Request $req)
     {
-      $token            = $req->header("session-token");
+      $token            = $req->header("session_token");
       $practiceServices = new PracticeServices;
       $getusrData       = json_decode($practiceServices->checkUserDataToken($token));
 

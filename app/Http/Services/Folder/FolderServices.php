@@ -26,7 +26,7 @@ class FolderServices
         return folderModel::validateFolderName($payload, $usrId);
       }
 
-    public function showFolderData($payload, $usrId)
+    public function  showFolderData($payload, $usrId)
     {
         $fetchFolderData = folderModel::folderDatausingUsrId($payload, $usrId);
         return $fetchFolderData;

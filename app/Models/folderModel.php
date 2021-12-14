@@ -31,7 +31,7 @@ class folderModel extends Model
    public static function validateFolderName($value, $usrId)
    {
    	$addData = DB::table('usr_folder')
-   					->select('*')
+   					->select('folder_name')
    					->where('folder_name', $value)
    					->where('folder_created_by', $usrId)
    					->get();
@@ -43,7 +43,7 @@ class folderModel extends Model
    public static function folderDatausingUsrId($value, $usrId)
    {
    	$fetchData = DB::table('usr_folder')
-   					->select('id', 'folder_name')
+   					->select('id', 'folder_name', 'folder_password')
    					->where('folder_created_by', $usrId)
    					->where('folder_state', $value['folder_state'])
    					->where('folder_type', $value['folder_type'])

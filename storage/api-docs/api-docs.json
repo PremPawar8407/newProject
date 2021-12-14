@@ -166,6 +166,245 @@
                 }
             }
         },
+        "/api/addCategory": {
+            "post": {
+                "tags": [
+                    "Project Category"
+                ],
+                "summary": "Create Category",
+                "description": "create Category<br/>\n       Success Code:<br/>\n       10015: Category added successfully.<br/>\n       Error Code:<br/>\n       7002: Please enter a valid session-token.<br/>\n       7019: Please enter valid folder_id.<br/>\n       7020: Please enter valid category name.<br/>\n       7021: This folder_id is not valid or belongs to other account.<br/>\n       7022: Category name already exists.<br/>\n       ",
+                "operationId": "App\\Http\\Controllers\\categoryController::addCategory",
+                "parameters": [
+                    {
+                        "name": "session-token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Provide Category details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "folder_id",
+                                    "cat_name"
+                                ],
+                                "properties": {
+                                    "folder_id": {
+                                        "type": "string",
+                                        "example": "1"
+                                    },
+                                    "cat_name": {
+                                        "type": "string",
+                                        "example": "addFolders"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/updateCategory": {
+            "post": {
+                "tags": [
+                    "Project Category"
+                ],
+                "summary": "Create update",
+                "description": "update Category<br/>\n       Success Code:<br/>\n       10016: Category details updated successfully.<br/>\n       Error Code:<br/>\n       7002: Please enter a valid session-token.<br/>\n       7019: Please enter valid folder_id.<br/>\n       7020: Please enter valid category name.<br/>\n       7021: This folder_id is not valid or belongs to other account.<br/>\n       7022: Category name already exists.<br/>\n       7023: Please enter valid category ID.<br/>\n       7024: Please enter valid category state(A/I/D).<br/>\n       ",
+                "operationId": "App\\Http\\Controllers\\categoryController::updateCategory",
+                "parameters": [
+                    {
+                        "name": "session-token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Provide Category details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "cat_id",
+                                    "folder_id",
+                                    "cat_name",
+                                    "cat_state"
+                                ],
+                                "properties": {
+                                    "cat_id": {
+                                        "type": "string",
+                                        "example": "1"
+                                    },
+                                    "folder_id": {
+                                        "type": "string",
+                                        "example": "1"
+                                    },
+                                    "cat_name": {
+                                        "type": "string",
+                                        "example": "NewCategory"
+                                    },
+                                    "cat_state": {
+                                        "type": "string",
+                                        "example": "A/I/D"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/category/listAll": {
+            "get": {
+                "tags": [
+                    "Project Category"
+                ],
+                "summary": "List all category names under usr_id",
+                "description": "fetch folder list <br/>\n      Success Code:<br/>\n            10017: Category list fetched successfullly.<br/>\n      Error Code:<br/>\n            7002: Please enter a valid session-token.<br/>\n            7019: Please enter valid folder_id.<br/>\n            7021: This folder_id is not valid or belongs to other account.<br/> \n       ",
+                "operationId": "App\\Http\\Controllers\\categoryController::categoryListAll",
+                "parameters": [
+                    {
+                        "name": "folder_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "1/2"
+                        }
+                    },
+                    {
+                        "name": "session-token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/category/list_all_by_user": {
+            "get": {
+                "tags": [
+                    "Project Category"
+                ],
+                "summary": "List all category names under usr_id",
+                "description": "fetch folder list <br/>\n      Success Code:<br/>\n            10017: Category list fetched successfullly.<br/>\n      Error Code:<br/>\n            7002: Please enter a valid session-token.<br/>\n            7019: Please enter valid folder_id.<br/>\n            7021: This folder_id is not valid or belongs to other account.<br/> \n       ",
+                "operationId": "App\\Http\\Controllers\\categoryController::listAllByUser",
+                "parameters": [
+                    {
+                        "name": "folder_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "1/2"
+                        }
+                    },
+                    {
+                        "name": "usr_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "example": "1/2"
+                        }
+                    },
+                    {
+                        "name": "session-token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/orderby": {
             "get": {
                 "tags": [
@@ -190,6 +429,283 @@
                     },
                     "403": {
                         "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/addContact": {
+            "post": {
+                "tags": [
+                    "Project Contact"
+                ],
+                "summary": "Create contact",
+                "description": "create contact<br/>\n       Success Code:<br/>\n       10012: Contact added successfully.<br/>\n       Error Code:<br/>\n       7002: Please enter a valid session-token.<br/>\n       7012: Please enter a valid gorup_id.<br/>\n       7013: Please enter valid contact number.<br/>\n       7014: Please enter valid first name.<br/>\n       7015: Please enter valid last name.<br/>\n       7016: Please enter valid email.<br/>\n       7017: Phone number already exists.<br/>\n       ",
+                "operationId": "App\\Http\\Controllers\\contactController::addContact",
+                "parameters": [
+                    {
+                        "name": "session-token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Provide contact details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "phone_number",
+                                    "first_name",
+                                    "last_name",
+                                    "email"
+                                ],
+                                "properties": {
+                                    "con_group_id": {
+                                        "type": "string",
+                                        "example": "1"
+                                    },
+                                    "phone_number": {
+                                        "type": "string",
+                                        "example": "1234567890"
+                                    },
+                                    "first_name": {
+                                        "type": "string",
+                                        "example": "John"
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "example": "Deo"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "john@gamil.com"
+                                    },
+                                    "notes": {
+                                        "type": "string",
+                                        "example": "test a dummy text."
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/updateContact": {
+            "post": {
+                "tags": [
+                    "Project Contact"
+                ],
+                "summary": "update contact",
+                "description": "update contact<br/>\n       Success Code:<br/>\n       10012: Contact added successfully.<br/>\n       Error Code:<br/>\n       7002: Please enter a valid session-token.<br/>\n       7012: Please enter a valid gorup_id.<br/>\n       7013: Please enter valid contact number.<br/>\n       7014: Please enter valid first name.<br/>\n       7015: Please enter valid last name.<br/>\n       7016: Please enter valid email.<br/>\n       7017: Phone number already exists.<br/>\n       ",
+                "operationId": "App\\Http\\Controllers\\contactController::updateContact",
+                "parameters": [
+                    {
+                        "name": "session-token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Provide contact details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "phone_number",
+                                    "first_name",
+                                    "last_name",
+                                    "email"
+                                ],
+                                "properties": {
+                                    "con_id": {
+                                        "type": "string",
+                                        "example": "1"
+                                    },
+                                    "first_name": {
+                                        "type": "string",
+                                        "example": "John"
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "example": "Deo"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "john@gamil.com"
+                                    },
+                                    "notes": {
+                                        "type": "string",
+                                        "example": "test a dummy text."
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/contactListAll": {
+            "get": {
+                "tags": [
+                    "Project Contact"
+                ],
+                "summary": "List all folder names under usr_id",
+                "description": "fetch folder list <br/>\n      Success Code:<br/>\n            10010: Group list fetched successfullly.<br/>\n      Error Code:<br/>\n            7002: Please enter a valid session-token.<br/>\n       ",
+                "operationId": "App\\Http\\Controllers\\contactController::contactListAll",
+                "parameters": [
+                    {
+                        "name": "number",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "1123"
+                        }
+                    },
+                    {
+                        "name": "area_code",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "123"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "john"
+                        }
+                    },
+                    {
+                        "name": "con_type",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "PUBLIC/PRIVATE"
+                        }
+                    },
+                    {
+                        "name": "grp_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "1"
+                        }
+                    },
+                    {
+                        "name": "num",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "10/50/150"
+                        }
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "0"
+                        }
+                    },
+                    {
+                        "name": "sort_by",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "phone_number, first_name, email, created_on, status"
+                        }
+                    },
+                    {
+                        "name": "order",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "ASC/DESC"
+                        }
+                    },
+                    {
+                        "name": "session-token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -400,6 +916,68 @@
                     },
                     "404": {
                         "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/downloadusr": {
+            "get": {
+                "tags": [
+                    "prem"
+                ],
+                "summary": "List all studets",
+                "description": "create folder<br/>\n       Success Code:<br/>\n       8000: Response-Note updated successfully.<br/>\n       Error Code:<br/>\n       10001: Invalid session-token or its expired.<br/>\n       7031: Please enter a valid subscription(1/2/3).<br/>\n       7032: Please enter a valid sort by.<br/>\n       7033: Please enter a valid order(ASC/DESC).<br/>\n       ",
+                "operationId": "App\\Http\\Controllers\\downloadUsrController::export",
+                "parameters": [
+                    {
+                        "name": "session-token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sort_By",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "example": "con_first_name/con_last_name"
+                        }
+                    },
+                    {
+                        "name": "order",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "example": "ASC/DESC"
+                        }
+                    },
+                    {
+                        "name": "subscription",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "example": "0/1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "Please enter a valid information",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -739,7 +1317,7 @@
                 }
             }
         },
-        "/api/listAll": {
+        "/api/listAllFolder": {
             "get": {
                 "tags": [
                     "Project"
@@ -789,7 +1367,7 @@
         "/api/listAllFolderUserId": {
             "get": {
                 "tags": [
-                    "new"
+                    "Project"
                 ],
                 "summary": "List all folder names under usr_id",
                 "description": "fetch folder list <br/>\n      Success Code:<br/>\n            10005: Folder list fetch successfull.<br/>\n      Error Code:<br/>\n            7002: Please enter a valid session-token.<br/>\n       \t\t7007: pleasse enter a valid folder_type(NORMAL/DRIP).<br/>\n       ",
@@ -993,8 +1571,8 @@
                 "tags": [
                     "Project Group"
                 ],
-                "summary": "Create Group",
-                "description": "create group<br/>\n       Success Code:<br/>\n       10007: Group added successfully.<br/>\n       Error Code:<br/>\n       7002: Please enter a valid session-token.<br/>\n       7009: Please enter a valid group_name.<br/>\n       7010: Please enter a valid group_type(PUBLIC/PRIVATE).<br/>\n       7011: Group name is already exists.<br/>\n       ",
+                "summary": "Delete Group",
+                "description": "create group<br/>\n       Success Code:<br/>\n       10008: Group deleted successfullly.<br/>\n       Error Code:<br/>\n       7002: Please enter a valid session-token.<br/>\n       ",
                 "operationId": "App\\Http\\Controllers\\groupController::deleteGroup",
                 "parameters": [
                     {
@@ -1026,6 +1604,209 @@
                         }
                     }
                 },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/updateGroup": {
+            "post": {
+                "tags": [
+                    "Project Group"
+                ],
+                "summary": "update Group",
+                "description": "update group<br/>\n       Success Code:<br/>\n       10009: Group details update successfull.<br/>\n       Error Code:<br/>\n       7002: Please enter a valid session-token.<br/>\n       7009: Please enter a valid group_name.<br/>\n       7010: Please enter a valid group_type(PUBLIC/PRIVATE).<br/>\n       7011: Group name is already exists.<br/>\n       7012: Please enter a valid gorup_id.<br/>\n       ",
+                "operationId": "App\\Http\\Controllers\\groupController::updateGroup",
+                "parameters": [
+                    {
+                        "name": "session-token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Provide Group details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "grp_id",
+                                    "grp_name",
+                                    "grp_note",
+                                    "grp_type"
+                                ],
+                                "properties": {
+                                    "grp_id": {
+                                        "type": "number",
+                                        "example": "0"
+                                    },
+                                    "grp_name": {
+                                        "type": "string",
+                                        "example": "test"
+                                    },
+                                    "grp_note": {
+                                        "type": "string",
+                                        "example": "123456"
+                                    },
+                                    "grp_type": {
+                                        "type": "string",
+                                        "example": "PUBLIC/PRIVATE"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/listAll": {
+            "get": {
+                "tags": [
+                    "Project Group"
+                ],
+                "summary": "List all folder names under usr_id",
+                "description": "fetch folder list <br/>\n      Success Code:<br/>\n            10010: Group list fetched successfullly.<br/>\n      Error Code:<br/>\n            7002: Please enter a valid session-token.<br/>\n       ",
+                "operationId": "App\\Http\\Controllers\\groupController::fetchAllGroup",
+                "parameters": [
+                    {
+                        "name": "grp_type",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "PUBLIC/PRIVATE"
+                        }
+                    },
+                    {
+                        "name": "num",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "10/50/150"
+                        }
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "0"
+                        }
+                    },
+                    {
+                        "name": "sort_by",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "grp_name/grp_note"
+                        }
+                    },
+                    {
+                        "name": "order",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "ASC/DESC"
+                        }
+                    },
+                    {
+                        "name": "session-token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/details": {
+            "get": {
+                "tags": [
+                    "Project Group"
+                ],
+                "summary": "List all group names under usr_id",
+                "description": "fetch group list <br/>\n      Success Code:<br/>\n            10011: Group derails fetch successfully.<br/>\n      Error Code:<br/>\n            7002: Please enter a valid session-token.<br/>\n       ",
+                "operationId": "App\\Http\\Controllers\\groupController::groupDetails",
+                "parameters": [
+                    {
+                        "name": "grp_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "numeric",
+                            "example": "0"
+                        }
+                    },
+                    {
+                        "name": "session-token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "422": {
                         "description": "Wrong credentials response",
@@ -1124,6 +1905,112 @@
                 "operationId": "App\\Http\\Controllers\\logincontroller::validToken",
                 "parameters": [
                     {
+                        "name": "session_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/create": {
+            "post": {
+                "tags": [
+                    "MongoDb project"
+                ],
+                "summary": "Create Data in MongoDB",
+                "description": "create<br/>\n       Success Code:<br/>\n       10012: Data inserted successfully in MongoDB.<br/>\n       Error Code:<br/>\n       7002: Please enter a valid session-token.<br/>\n       7035: Please enter a valid firstname.<br/>\n       7036: Please enter a valid lastname.<br/>\n       7037: Please enter a valid phone.<br/>\n       ",
+                "operationId": "App\\Http\\Controllers\\mongoDbController::crateRegistration",
+                "parameters": [
+                    {
+                        "name": "session-token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Provide Folder details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "firstname",
+                                    "lastname",
+                                    "phone"
+                                ],
+                                "properties": {
+                                    "firstname": {
+                                        "type": "string",
+                                        "example": "prem"
+                                    },
+                                    "lastname": {
+                                        "type": "string",
+                                        "example": "pawar"
+                                    },
+                                    "Phone": {
+                                        "type": "string",
+                                        "example": "8407595585"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/read": {
+            "get": {
+                "tags": [
+                    "MongoDb project"
+                ],
+                "summary": "List all data in mongoDB newdata collection",
+                "description": "fetch collection value<br/>\n      Success Code:<br/>\n            10005: Folder list fetch successfull.<br/>\n      Error Code:<br/>\n            7002: Please enter a valid session-token.<br/>\n            7006: Please enter a valid folder_state(A/I).<br/>\n            7007: pleasse enter a valid folder_type(NORMAL/DRIP).<br/> \n       ",
+                "operationId": "App\\Http\\Controllers\\mongoDbController::readData",
+                "parameters": [
+                    {
                         "name": "session-token",
                         "in": "header",
                         "required": true,
@@ -1148,6 +2035,129 @@
                                 }
                             }
                         }
+                    }
+                }
+            }
+        },
+        "/api/updateData": {
+            "put": {
+                "tags": [
+                    "MongoDb project"
+                ],
+                "summary": "Update existing project",
+                "description": "update data",
+                "operationId": "update data mongodb in collection",
+                "parameters": [
+                    {
+                        "name": "session-token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "session-token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Provide data details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "student_fname",
+                                    "student_lname",
+                                    "student_phone"
+                                ],
+                                "properties": {
+                                    "mongo_id": {
+                                        "type": "string",
+                                        "example": "213232131"
+                                    },
+                                    "firstname": {
+                                        "type": "string",
+                                        "example": "john"
+                                    },
+                                    "lastname": {
+                                        "type": "string",
+                                        "example": "doe"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "9784"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/deleteData": {
+            "delete": {
+                "tags": [
+                    "MongoDb project"
+                ],
+                "summary": "delete data in mongoDB",
+                "description": "Deletes a record and returns no content",
+                "operationId": "delete data in mongoDB",
+                "parameters": [
+                    {
+                        "name": "mongo_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "session-token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
                     }
                 }
             }
@@ -1562,6 +2572,403 @@
                     },
                     "403": {
                         "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/template/add": {
+            "post": {
+                "tags": [
+                    "Project Template"
+                ],
+                "summary": "Create Group",
+                "description": "create group<br/>\n       Success Code:<br/>\n       10018: Template added successfullly.<br/>\n       Error Code:<br/>\n       7002: Please enter a valid session-token.<br/>\n       7007: pleasse enter a valid folder_type(NORMAL/DRIP).<br/>\n       7019: Please enter valid folder_id.<br/>\n       7021: This folder_id is not valid or belongs to other account.<br/>\n       7023: Please enter valid category ID.<br/>\n       7025: Please enter valid template Name.<br/>\n       7030: Template name already exists.<br/>\n       7026: Please enter valid template message.<br/>\n       7027: Please enter valid media_id.<br/>\n       7028: Please enter valid media_url.<br/>\n       7029: Minimum one drip message is required.<br/>\n       ",
+                "operationId": "App\\Http\\Controllers\\templateController::addTemplate",
+                "parameters": [
+                    {
+                        "name": "session-token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Provide Template details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "folder_id",
+                                    "cat_id",
+                                    "tmpl_name",
+                                    "tmpl_message"
+                                ],
+                                "properties": {
+                                    "folder_id": {
+                                        "type": "numeric",
+                                        "example": "1"
+                                    },
+                                    "cat_id": {
+                                        "type": "numeric",
+                                        "example": "1"
+                                    },
+                                    "tmpl_name": {
+                                        "type": "string",
+                                        "example": "Template Name"
+                                    },
+                                    "tmpl_message": {
+                                        "type": "string",
+                                        "example": "Lorem ipsum dummy text for testing"
+                                    },
+                                    "tmpl_media_id": {
+                                        "type": "numeric",
+                                        "example": "1(optional)"
+                                    },
+                                    "tmpl_media_title": {
+                                        "type": "string",
+                                        "example": "Media Title (Optional)"
+                                    },
+                                    "tmpl_media_url": {
+                                        "type": "string",
+                                        "example": "http://sampleurl.png (Optional)"
+                                    },
+                                    "tmpl_type": {
+                                        "type": "string",
+                                        "example": "NORMAL/DRIP"
+                                    },
+                                    "tmpl_drip_details": {
+                                        "description": "multiple values for follow-up messages NOT REQUIRED FOR NORMAL DRIP MESSAGES",
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "drp_type": {
+                                                    "type": "string",
+                                                    "example": "DAY/HRS_MIN"
+                                                },
+                                                "drp_days": {
+                                                    "type": "integer",
+                                                    "example": 0
+                                                },
+                                                "drp_hours": {
+                                                    "type": "integer",
+                                                    "example": 12
+                                                },
+                                                "drp_minutes": {
+                                                    "type": "integer",
+                                                    "example": 59
+                                                },
+                                                "drp_meridiem": {
+                                                    "type": "string",
+                                                    "example": "AM/PM"
+                                                },
+                                                "drp_message": {
+                                                    "type": "string",
+                                                    "example": "Lorem ipsum dummy text for testing."
+                                                },
+                                                "drp_media_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "drp_media_title": {
+                                                    "type": "string",
+                                                    "example": "Media Title"
+                                                },
+                                                "drp_media_url": {
+                                                    "type": "string",
+                                                    "example": "http://something.mp4"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/template/update": {
+            "post": {
+                "tags": [
+                    "Project Template"
+                ],
+                "summary": "User Login",
+                "description": "create group<br/>\n       Success Code:<br/>\n       10019: Template details updated successfully.<br/>\n       Error Code:<br/>\n       7019: Please enter a valid session-token.<br/>\n       7021: This folder_id is not valid or belongs to other account.<br/>\n       7023: Please enter valid category ID.<br/>\n       7025: Please enter valid template Name.<br/>\n       7026: Please enter valid template message.<br/>\n       7027: Please enter valid media_id.<br/>\n       7028: Please enter valid media_url.<br/>\n       7030: Template name already exists.<br/>\n       7034: pleasse enter a valid template ID.<br/>\n       ",
+                "operationId": "App\\Http\\Controllers\\templateController::updateTemplate",
+                "parameters": [
+                    {
+                        "name": "session-token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Pass user credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "tmpl_id",
+                                    "folder_id",
+                                    "cat_id",
+                                    "tmpl_name",
+                                    "tmpl_message"
+                                ],
+                                "properties": {
+                                    "tmpl_id": {
+                                        "type": "numeric",
+                                        "example": "1"
+                                    },
+                                    "folder_id": {
+                                        "type": "numeric",
+                                        "example": "1"
+                                    },
+                                    "cat_id": {
+                                        "type": "numeric",
+                                        "example": "1"
+                                    },
+                                    "tmpl_name": {
+                                        "type": "string",
+                                        "example": "Template Name"
+                                    },
+                                    "tmpl_message": {
+                                        "type": "string",
+                                        "example": "Lorem ipsum dummy text for testing"
+                                    },
+                                    "tmpl_media_id": {
+                                        "type": "numeric",
+                                        "example": "1(optional)"
+                                    },
+                                    "tmpl_media_title": {
+                                        "type": "string",
+                                        "example": "Media Title (Optional)"
+                                    },
+                                    "tmpl_media_url": {
+                                        "type": "string",
+                                        "example": "http://sampleurl.png (Optional)"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response"
+                    }
+                }
+            }
+        },
+        "/api/templateListAll": {
+            "get": {
+                "tags": [
+                    "Project Template"
+                ],
+                "summary": "List all Template names under folder_id or cat_id and tmp_type",
+                "description": "fetch Template list<br/>\n      Success Code:<br/>\n            10010: Template list fetched successfullly.<br/>\n      Error Code:<br/>\n            7002: Please enter a valid session-token.<br/>\n            7007: pleasse enter a valid folder_type(NORMAL/DRIP).<br/>\n            7021: This folder_id is not valid or belongs to other account.<br/>\n            7023: Please enter valid category ID.<br/>\n       ",
+                "operationId": "App\\Http\\Controllers\\templateController::templateListAll",
+                "parameters": [
+                    {
+                        "name": "tmpl_type",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "NORMAL/DRIP"
+                        }
+                    },
+                    {
+                        "name": "folder_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "1"
+                        }
+                    },
+                    {
+                        "name": "cat_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "1"
+                        }
+                    },
+                    {
+                        "name": "session-token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/template_list_all_by_userID": {
+            "get": {
+                "tags": [
+                    "Project Template"
+                ],
+                "summary": "List all Template names under folder_id or cat_id or usr_id and tmp_type",
+                "description": "fetch Template list<br/>\n      Success Code:<br/>\n            10010: Template list fetched successfullly.<br/>\n      Error Code:<br/>\n            7002: Please enter a valid session-token.<br/>\n            7007: pleasse enter a valid folder_type(NORMAL/DRIP).<br/>\n            7021: This folder_id is not valid or belongs to other account.<br/>\n            7023: Please enter valid category ID.<br/>\n       ",
+                "operationId": "App\\Http\\Controllers\\templateController::listAllByUerID",
+                "parameters": [
+                    {
+                        "name": "tmpl_type",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "NORMAL/DRIP"
+                        }
+                    },
+                    {
+                        "name": "folder_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "1"
+                        }
+                    },
+                    {
+                        "name": "cat_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "1"
+                        }
+                    },
+                    {
+                        "name": "usr_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "1"
+                        }
+                    },
+                    {
+                        "name": "session-token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/template_listDripMessages": {
+            "get": {
+                "tags": [
+                    "Project Template"
+                ],
+                "summary": "List all drip message under templ_id",
+                "description": "fetch Template list<br/>\n      Success Code:<br/>\n            10011: Drip messages list fetched successfullly.<br/>\n      Error Code:<br/>\n            7002: Please enter a valid session-token.<br/>\n            7034: pleasse enter a valid template ID.<br/>\n       ",
+                "operationId": "App\\Http\\Controllers\\templateController::listDripMessages",
+                "parameters": [
+                    {
+                        "name": "tmpl_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": ""
+                        }
+                    },
+                    {
+                        "name": "session-token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }

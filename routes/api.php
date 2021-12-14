@@ -122,7 +122,9 @@ Route::post('addFolder','App\Http\Controllers\folderController@insertFolder');
 
 Route::get('folderList','App\Http\Controllers\folderController@fetchFolder');
 
-Route::get('listAll','App\Http\Controllers\folderController@fetchFolderType');
+Route::get('listAllFolder
+	','App\Http\Controllers\folderController@fetchFolderType');
+
 
 Route::get('listAllFolderUserId','App\Http\Controllers\folderController@listAllFolder');
 
@@ -131,6 +133,44 @@ Route::post('update_folder','App\Http\Controllers\folderController@updateFolder'
 Route::post('addGroup', 'App\Http\Controllers\groupController@addGroup');
 
 Route::post('deleteGroup', 'App\Http\Controllers\groupController@deleteGroup');
+
+Route::post('updateGroup', 'App\Http\Controllers\groupController@updateGroup');
+
+Route::get('listAll', 'App\Http\Controllers\groupController@fetchAllGroup');
+
+Route::get('details', 'App\Http\Controllers\groupController@groupDetails');
+
+Route::post('addContact', 'App\Http\Controllers\contactController@addContact');
+
+Route::post('updateContact', 'App\Http\Controllers\contactController@updateContact');
+
+Route::get('contactListAll', 'App\Http\Controllers\contactController@contactListAll');
+
+Route::post('addCategory', 'App\Http\Controllers\categoryController@addCategory');
+
+Route::post('updateCategory', 'App\Http\Controllers\categoryController@updateCategory');
+
+Route::get('category/listAll', 'App\Http\Controllers\categoryController@categoryListAll');
+
+Route::get('category/list_all_by_user', 'App\Http\Controllers\categoryController@listAllByUser');
+
+Route::post('template/add', 'App\Http\Controllers\templateController@addTemplate');
+Route::post('template/update', 'App\Http\Controllers\templateController@updateTemplate');
+
+Route::get('downloadusr', 'App\Http\Controllers\downloadUsrController@export');
+Route::get('template_list_all_by_userID', 'App\Http\Controllers\templateController@listAllByUerID');
+
+Route::get('templateListAll', 'App\Http\Controllers\templateController@templateListAll');
+
+Route::get('template_listDripMessages', 'App\Http\Controllers\templateController@listDripMessages');
+
+Route::post('create', 'App\Http\Controllers\mongoDbController@crateRegistration');
+
+Route::get('read', 'App\Http\Controllers\mongoDbController@readData');
+
+Route::put('updateData', 'App\Http\Controllers\mongoDbController@updateData');
+
+Route::delete('deleteData', 'App\Http\Controllers\mongoDbController@deleteData');
 
 
 

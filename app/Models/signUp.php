@@ -51,9 +51,10 @@ class signUp extends Model
             $res  = $stmt->execute();
 
             $data = $stmt->fetchAll(PDO::FETCH_OBJ);
+
         if(count($data) > 0)
             {
-                $returnData['data'] = (array) $data[0];
+                $returnData['data'] = $data[0];
             }
 
             return $returnData;
