@@ -150,7 +150,56 @@ class templateModel extends Model
                     ->leftJoin('usr_media', 'usr_template.tmpl_media_id', '=', 'usr_media.media_id')
                     ->where(array('drp_tmpl_id' => $payload['tmpl_id']))
                     ->get();
-            Log::info("Drip message fetched successfull [" . $payload['account_id']. "]"); 
+        
         return $dripMsgList;  
     }
+
+
+    public static function fetchTemplateDetails($tmplID)
+    {
+         
+             $groupData = DB::table('usr_template')
+                    ->select('tmpl_id', 'tmpl_folder_id', 'tmpl_cat_id', 'folder_name', 'cat_name', 'media_id', 'media_url','tmpl_name','tmpl_message','tmpl_type')
+                    ->join('usr_folder', 'usr_template.tmpl_folder_id', '=', 'usr_folder.id')
+                    ->join('category', 'usr_template.tmpl_cat_id' , '=', 'category.cat_id')
+                    ->leftJoin('usr_media', 'usr_template.tmpl_media_id', '=', 'usr_media.media_id')
+                    //->where('tmpl_deleted_by', null)
+                    ->where('tmpl_id', $tmplID)
+                    ->get();
+
+            return $groupData;
+    }
+
+    public static function templateDelete($tmplID, $criteria)
+    {
+        $deleteTmpl = DB::table('usr_template')
+                    ->select('*')
+                    ->where('tmpl_id', $tmplID)
+                    ->update($criteria);
+
+        return $deleteTmpl;
+    }
+
+
+    public static function updateDripMessages($drpID, $criteria)
+    {  
+        $updateDrpMsg = DB::table('user_drip_messages')
+                    ->where('drp_id', $drpID)
+                    ->update($criteria);
+
+        return $updateDrpMsg;
+    }
+
+    public static function deleteDripMessages($payload)
+    {
+        $criteria['drp_deleted_on'] = date(getenv('DATETIME_FORMAT'));
+        $criteria['drp_deleted_by'] = $payload['account_id'];
+
+        $deletedrpMsg = DB::table('user_drip_messages')
+                    ->where('drp_id', $payload['drp_id'])
+                    ->update($criteria);
+
+        return $deletedrpMsg;
+    }
+
 }

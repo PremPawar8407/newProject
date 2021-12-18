@@ -190,25 +190,25 @@ class templateController extends Controller
     		return responceServices::responseWithError(7026, null);
     	}
 
-    	//valid mediaID
+    	/*//valid mediaID
     	$validmediaID = Validator::make($req->all(), $tmplMediaIdRules);
     	if ($validmediaID->fails()) 
     	{
     		return responceServices::responseWithError(7027, null);
-    	}
+    	}*/
 
-    	//valid mediaUrl
+    	/*/valid mediaUrl
     	$validMediaUrl = Validator::make($req->all(), $tmplMediaUrlRules);
     	if ($validMediaUrl->fails()) 
     	{
     		return responceServices::responseWithError(7028, null);
-    	}
+    	}*/
 
     	//valid template type
     	$validTemplType = Validator::make($req->all(), $tmplTypeRules);
     	if ($validTemplType->fails() || ! in_array(array_key_exists('tmpl_type', $payload) ? $payload['tmpl_type'] : "", array('NORMAL', 'DRIP'))) 
     	{
-    		return responceServices::responseWithError(7007,null);
+    		return responceServices::responseWithError(7039,null);
     	}
 
     	//validTmpDripDetails
@@ -219,8 +219,10 @@ class templateController extends Controller
     		return responceServices::responseWithError(7029, null);
     	}
 
-    	//$payload['media_id'] = 0;
-    	$payload['media_id'] = $templateServices->addMedia(array('media_title' => $payload['tmpl_media_title'], 'media_url' => $payload['tmpl_media_url'], 'media_source' => "TEMPLATE", 'media_created_on' => date(getenv("DATETIME_FORMAT")), 'media_created_by' => $payload['account_id']));
+    	if (array_key_exists('media_id', $payload)) {
+            $payload['media_id'] = $templateServices->addMedia(array('media_title' => $payload['tmpl_media_title'], 'media_url' => $payload['tmpl_media_url'], 'media_source' => "TEMPLATE", 'media_created_on' => date(getenv("DATETIME_FORMAT")), 'media_created_by' => $payload['account_id']));
+        }
+    	
     	
 
     	$lastTmplID = $templateServices->addTemplate($payload, $payload['account_id']);
@@ -304,11 +306,11 @@ class templateController extends Controller
 
         //valid tmplID 
 
-        $validTmplid = Validator::make($req->all(), $tmplMediaIdRules);
+        /*$validTmplid = Validator::make($req->all(), $tmplMediaIdRules);
         if ($validTmplid->fails()) 
         {
             return responceServices::responseWithError(7034, null);
-        }
+        }*/
 
         //dynamic validation tmplId
 
@@ -368,7 +370,7 @@ class templateController extends Controller
             return responceServices::responseWithError(7026, null);
         }
 
-        //valid mediaID
+        /*valid mediaID
         $validmediaID = Validator::make($req->all(), $tmplMediaIdRules);
         if ($validmediaID->fails()) 
         {
@@ -380,7 +382,7 @@ class templateController extends Controller
         if ($validMediaUrl->fails()) 
         {
             return responceServices::responseWithError(7028, null);
-        }
+        }*/
 
         if (array_key_exists('tmpl_media_url', $payload) && $payload['tmpl_media_url'] != null) 
         {
@@ -471,7 +473,7 @@ class templateController extends Controller
             $validTmplType = Validator::make($req->all(), $tmplTypeRules);
             if ($validTmplType->fails() || !in_array(array_key_exists('tmpl_type', $payload) ? $payload['tmpl_type'] : '', array('NORMAL', 'DRIP'))) 
             {
-                return responceServices::responseWithError(7007,null);
+                return responceServices::responseWithError(7039,null);
             }
 
             //check folderID
@@ -703,7 +705,300 @@ class templateController extends Controller
             }
 
             $dripMsgData = $templateServices->dripMsgList($payload);
-            return responceServices::respondWithSuccess(10011, $dripMsgData);
+            return responceServices::respondWithSuccess(10021, $dripMsgData);
        }
 
+
+       /**
+     * @OA\Get(
+     * path="/api/template_details",
+     * summary="List all drip message under templ_id",
+     *   description="fetch Template list<br/>
+      Success Code:<br/>
+            10011: Drip messages list fetched successfullly.<br/>
+      Error Code:<br/>
+            7002: Please enter a valid session-token.<br/>
+            7034: pleasse enter a valid template ID.<br/>
+       ",
+     * tags={"Project Template"},
+     *  @OA\Parameter(
+     *      name="tmpl_id",
+     *      in="query",
+     *      required=false,
+     *      @OA\Schema(
+     *          type="string",
+     *          example=""
+     *      )
+     *   ),
+     *  @OA\Parameter(
+     *      name="session-token",
+     *      in="header",
+     *      required=true,
+     *      @OA\Schema(
+     *          type="string"
+     *      )
+     *   ),
+     * @OA\Response(
+     *    response=422,
+     *    description="Wrong credentials response",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Sorry, wrong email address or password. Please try again")
+     *        )
+     *     )
+     * )
+     */
+
+       function templateDetails(Request $req)
+       {
+            $sessionToken = $req->header("session-token");
+            $practiceServices = new PracticeServices;
+            $usrData =  json_decode($practiceServices->checkUserDataToken($sessionToken));
+            if ($usrData == '') 
+            {
+            return responceServices::responseWithError(7002, null);
+            }
+
+            $payload                 =  $req->all();
+            $payload['account_id']   =  $usrData->data->usr_id;
+
+
+             $templIDRules = ['tmpl_id' => 'required'];
+
+            ///valid tmplID 
+
+            $validTmplid = Validator::make($req->all(), $templIDRules);
+            if ($validTmplid->fails()) 
+            {
+                return responceServices::responseWithError(7034, null);
+            }
+
+            //dynamic validation tmplId
+
+            $templateServices = new templateServices;
+
+            $validTmplData = $templateServices->checkValidTmplId($payload['tmpl_id'], $payload['account_id']);
+            if (!count($validTmplData)) 
+            {
+                return responceServices::responseWithError(7034, null);
+            }           
+
+            $result = $templateServices->fetchTemplateDetails($payload['tmpl_id']);
+            return responceServices::respondWithSuccess(10010, $result);
+       }
+
+
+    /**
+     * @OA\Post(
+     * path="/api/template/delete",
+     * summary="User Login",
+     *   description="create group<br/>
+       Success Code:<br/>
+       10019: template deleted successfull.<br/>
+       Error Code:<br/>
+       7019: Please enter a valid session-token.<br/>
+       7021: This folder_id is not valid or belongs to other account.<br/>
+       ",
+     * tags={"Project Template"},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Pass user credentials",
+     *    @OA\JsonContent(
+     *       required={"tmpl_id", "folder_id", "cat_id", "tmpl_name", "tmpl_message"},
+     *       @OA\Property(property="tmpl_id", type="numeric", example="1")
+     *    ),
+     * ),
+     *  @OA\Parameter(
+     *      name="session-token",
+     *      in="header",
+     *      required=true,
+     *      @OA\Schema(
+     *          type="string"
+     *      )
+     *   ),
+     * @OA\Response(
+     *    response=422,
+     *    description="Wrong credentials response"
+     *     )
+     * )
+     */
+       function templateDelete(Request $req)
+    {
+             $sessionToken = $req->header("session-token");
+        $practiceServices = new PracticeServices;
+        $usrData =  json_decode($practiceServices->checkUserDataToken($sessionToken));
+        if ($usrData == '') 
+        {
+            return responceServices::responseWithError(7002, null);
+        }
+
+        $payload                 =  $req->all();
+        $payload['account_id']   =  $usrData->data->usr_id;
+
+        $tmplMediaIdRules = ['tmpl_id' => 'required'];
+
+        //valid tmplID 
+
+        $validTmplid = Validator::make($req->all(), $tmplMediaIdRules);
+        if ($validTmplid->fails()) 
+        {
+            return responceServices::responseWithError(7034, null);
+        }
+
+        //dynamic validation tmplId
+
+        $templateServices = new templateServices;
+
+        $validTmplData = $templateServices->checkValidTmplId($payload['tmpl_id'], $payload['account_id']);
+        if (!count($validTmplData)) 
+        {
+            return responceServices::responseWithError(7034, null);
+        }
+        
+        $deleteData = $templateServices->templateDelete($payload);
+        return responceServices::respondWithSuccess(10030, null); 
+    }
+
+
+    /**
+     * @OA\Post(
+     * path="/api/template/updateDripMessages",
+     * summary="template",
+     *   description="Update drip_messages<br/>
+       Success Code:<br/>
+       10032: Drip messages updated successfully.<br/>
+       Error Code:<br/>
+       7019: Please enter a valid session-token.<br/>
+       7057: Please enter a valid drip_id.<br/>
+       
+       ",
+     * tags={"Project Template"},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="update drip messages",
+     *    @OA\JsonContent(
+     *       required={"drp_id"},
+     *       @OA\Property(property="drp_id", type="numeric", example="1"),
+     *       @OA\Property(property="drp_type", type="strign", example="DAY/HRS_MIN"),
+     *       @OA\Property(property="drp_days", type="numeric", example="1"),
+     *       @OA\Property(property="drp_hours", type="numeric", example="12"),
+     *       @OA\Property(property="drp_minutes", type="numeric", example="50"),
+     *       @OA\Property(property="drp_meridiem", type="numeric", example="AM/PM"),
+     *       @OA\Property(property="drp_message", type="string", example="Lorem ipsum dummy text for testing."),
+     *       @OA\Property(property="drp_media_id", type="string", example="1"),
+     *       @OA\Property(property="drp_media_title", type="string", example="media title"),
+     *       @OA\Property(property="drp_media_url", type="string", example="https://sample.png")
+     *    ),
+     * ),
+     *  @OA\Parameter(
+     *      name="session-token",
+     *      in="header",
+     *      required=true,
+     *      @OA\Schema(
+     *          type="string"
+     *      )
+     *   ),
+     * @OA\Response(
+     *    response=422,
+     *    description="Wrong credentials response"
+     *     )
+     * )
+     */
+
+       function updateDripMessages(Request $req)
+       {
+            $sessionToken = $req->header("session-token");
+            $practiceServices = new PracticeServices;
+            $usrData =  json_decode($practiceServices->checkUserDataToken($sessionToken));
+            if ($usrData == '') 
+            {
+                return responceServices::responseWithError(7002, null);
+            }
+
+            $payload                 =  $req->all();
+            $payload['account_id']   =  $usrData->data->usr_id;
+
+            $drpIdIdRules = ['drp_id' => 'required'];
+
+            //valid drp_id
+
+            $validDripId = Validator::make($req->all(), $drpIdIdRules);
+            if ($validDripId->fails()) 
+            {
+                return responceServices::responseWithError(7057, null);
+            }
+
+            $templateServices = new templateServices;
+
+            if (array_key_exists('drp_media_url', $payload) && $payload['drp_media_url'] != null) 
+            {
+                $payload['drp_media_id'] = $templateServices->addMedia(array('media_title' => $payload['drp_media_title'], 'media_url' => $payload['drp_media_url'], 'media_source' => "TEMPLATE_DRIP", 'media_created_on' => date(getenv("DATETIME_FORMAT")), 'media_created_by' => $payload['account_id']));
+            }else{
+                $payload['drp_media_id'] = 0;
+            }
+            $updateData = $templateServices->updateDripMessages($payload);
+            return responceServices::respondWithSuccess(10032, null);       
+        }
+
+
+        /**
+     * @OA\Post(
+     * path="/api/template/delete_dripMessages",
+     * summary="template",
+     *   description="delete drip_messages<br/>
+       Success Code:<br/>
+       10033: Drip messages deleted successfully.<br/>
+       Error Code:<br/>
+       7019: Please enter a valid session-token.<br/>
+       7057: Please enter a valid drip_id.<br/>
+       ",
+     * tags={"Project Template"},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Pass user credentials",
+     *    @OA\JsonContent(
+     *       required={"drp_id"},
+     *       @OA\Property(property="drp_id", type="numeric", example="1")
+     *    ),
+     * ),
+     *  @OA\Parameter(
+     *      name="session-token",
+     *      in="header",
+     *      required=true,
+     *      @OA\Schema(
+     *          type="string"
+     *      )
+     *   ),
+     * @OA\Response(
+     *    response=422,
+     *    description="Wrong credentials response"
+     *     )
+     * )
+     */
+
+       function deleteDripMessages(Request $req)
+       {
+            $sessionToken = $req->header("session-token");
+            $practiceServices = new PracticeServices;
+            $usrData =  json_decode($practiceServices->checkUserDataToken($sessionToken));
+            if ($usrData == '') 
+            {
+                return responceServices::responseWithError(7002, null);
+            }
+
+            $payload                 =  $req->all();
+            $payload['account_id']   =  $usrData->data->usr_id;
+
+            $drpIdIdRules = ['drp_id' => 'required'];
+            
+            //valid drp_id
+            $validDripId = Validator::make($req->all(), $drpIdIdRules);
+            if ($validDripId->fails()) 
+            {
+                return responceServices::responseWithError(7057, null);
+            }
+
+            $templateServices = new templateServices;
+            $deleteDripMessagesData = $templateServices->deleteDripMessages($payload);
+            return responceServices::respondWithSuccess(10033, null);   
+       }
 }
